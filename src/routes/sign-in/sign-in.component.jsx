@@ -4,7 +4,6 @@ import { getRedirectResult } from "firebase/auth";
 
 import {
   auth,
-  signInWithGooglePopup,
   signInWithGoogleRedirect,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
@@ -12,8 +11,7 @@ import {
 const SignIn = () => {
 
   async function getResponse() {
-    const response = await getRedirectResult(auth);
-    console.log(response);
+    
   }
 
   useEffect(() => {
