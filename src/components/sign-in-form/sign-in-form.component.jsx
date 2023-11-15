@@ -1,3 +1,4 @@
+import { UserContext } from "../context/user.context";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import { useState } from "react";
@@ -8,7 +9,7 @@ import {
   createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import "./sign-in-form.styles.scss";
 
 const defaultFormFields = {
@@ -31,6 +32,8 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  const { setCurrentUser } = useContext(UserContext);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -43,11 +46,12 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const {user} = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
+      setCurrentUser(user);
+      
       resetFormFields();
     } catch (error) {
       switch (error.code) {
