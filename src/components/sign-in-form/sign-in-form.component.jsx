@@ -47,6 +47,7 @@ const SignInForm = () => {
         email,
         password
       );
+      console.log(response);
       resetFormFields();
     } catch (error) {
         if (error.code === "auth/wrong-password") {
@@ -77,13 +78,13 @@ const SignInForm = () => {
           name="password"
           value={password}
         />
+        <div className="buttons-container">
+          <Button type="submit">Sign In</Button>
+          <Button onClick={signInWithGoogleRedirect} buttonType="google">
+            Google Sign In
+          </Button>
+        </div>
       </form>
-      <div className="buttons-container">
-        <Button type="submit">Sign In</Button>
-        <Button onClick={signInWithGoogleRedirect} buttonType="google">
-          Sign In With Google
-        </Button>
-      </div>
     </div>
   );
 };
